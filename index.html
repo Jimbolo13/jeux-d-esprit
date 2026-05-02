@@ -1,180 +1,199 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>Jeu secret 👀</title>
+<meta charset="UTF-8">
+<title>Atlas de Valeriya 👀</title>
 
-  <style>
-    body {
-      font-family: Arial;
-      background: linear-gradient(135deg, #1e1e2f, #3a3a6a);
-      color: white;
-      max-width: 600px;
-      margin: auto;
-      padding: 20px;
-    }
+<style>
+body {
+  font-family: Arial;
+  background: linear-gradient(135deg, #1e1e2f, #3a3a6a);
+  color: white;
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
 
-    .box {
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 15px;
-      margin-top: 20px;
-      backdrop-filter: blur(8px);
-    }
+.box {
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 15px;
+  margin-top: 20px;
+}
 
-    button {
-      padding: 10px 15px;
-      border: none;
-      border-radius: 8px;
-      background: #ff4d6d;
-      color: white;
-      cursor: pointer;
-      margin-top: 10px;
-    }
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  background: #ff4d6d;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
+}
 
-    input, select, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: none;
-    }
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+}
 
-    #erreur {
-      color: #ff4d6d;
-      display: none;
-      margin-top: 10px;
-    }
-  </style>
+#error {
+  color: #ff4d6d;
+  display: none;
+}
+</style>
 </head>
 
 <body>
 
-<h1>🎮 Jeu secret</h1>
+<h1>🌌 Atlas de Valeriya</h1>
 
 <!-- STEP 1 -->
 <div class="box" id="step1">
-  <p>1) Entre ton prénom :</p>
-  <input type="text" id="prenom" placeholder="Ton prénom">
-  <button onclick="verifierPrenom()">Valider</button>
-  <p id="erreur">❌ Le prénom doit commencer par V</p>
+<p>Entre ton prénom :</p>
+<input id="prenom">
+<button onclick="checkName()">Entrer</button>
+<p id="error">Le prénom doit commencer par V</p>
 </div>
 
 <!-- STEP 2 -->
 <div class="box" id="step2" style="display:none;">
-  <p>2) Bienvenue Valeriya 👀<br>
-  J'ai créé ce petit jeu pour te distraire.</p>
-
-  <button onclick="nextStep3()">Continuer</button>
+<p>Bienvenue Valeriya. Cet endroit est pour toi.</p>
+<button onclick="go(3)">Continuer</button>
 </div>
 
 <!-- STEP 3 -->
 <div class="box" id="step3" style="display:none;">
-  <p>3) Tu préfères :</p>
-
-  <select id="pays">
-    <option>Canada</option>
-    <option>Australie</option>
-  </select>
-
-  <button onclick="nextStep4()">Continuer</button>
+<p>Tu préfères :</p>
+<select id="pays">
+<option>Canada</option>
+<option>Australie</option>
+</select>
+<button onclick="go(4)">Continuer</button>
 </div>
 
 <!-- STEP 4 -->
 <div class="box" id="step4" style="display:none;">
-  <p>4) Tu préfères :</p>
-
-  <select id="guitare">
-    <option>Guitare électrique</option>
-    <option>Guitare acoustique</option>
-  </select>
-
-  <button onclick="nextStep5()">Continuer</button>
+<p>Guitare :</p>
+<select id="guitare">
+<option>Électrique</option>
+<option>Acoustique</option>
+</select>
+<button onclick="go(5)">Continuer</button>
 </div>
 
 <!-- STEP 5 -->
 <div class="box" id="step5" style="display:none;">
-  <p>5) Écris quelque chose en Ukrainien 🇺🇦 :</p>
-  <textarea id="ukrainien" placeholder="Écris ici..."></textarea>
-
-  <button onclick="fin()">Continuer</button>
+<p>Écris quelque chose en Ukrainien 🇺🇦 :</p>
+<textarea id="ua"></textarea>
+<button onclick="go(6)">Continuer</button>
 </div>
 
 <!-- STEP 6 -->
 <div class="box" id="step6" style="display:none;">
-  <p>6) Merci.<br>
-  Tu viens de débloquer un cadeau 🎁<br>
-  Jeu terminé !</p>
+<p>Ton juron préféré en Ukrainien 😏 :</p>
+<input id="juron">
+<button onclick="go(7)">Continuer</button>
+</div>
 
-  <button onclick="envoyer()">Envoyer les réponses</button>
+<!-- STEP 7 PORTES -->
+<div class="box" id="step7" style="display:none;">
+<p>Tu vois trois portes :</p>
+
+<button onclick="door('souvenir')">🚪 Souvenirs</button>
+<button onclick="door('musique')">🚪 Musique</button>
+<button onclick="door('mystere')">🚪 Mystère</button>
+</div>
+
+<!-- CHEMIN SOUVENIR -->
+<div class="box" id="souvenir" style="display:none;">
+<p>Kyiv → Paris… un moment suspendu.</p>
+<button onclick="goChest()">Continuer</button>
+</div>
+
+<!-- CHEMIN MUSIQUE -->
+<div class="box" id="musique" style="display:none;">
+<p>Une playlist apparaît 🎧</p>
+<button onclick="goChest()">Continuer</button>
+</div>
+
+<!-- CHEMIN MYSTERE -->
+<div class="box" id="mystere" style="display:none;">
+<p>Quelque chose reste inexpliqué…</p>
+<button onclick="goChest()">Continuer</button>
+</div>
+
+<!-- COFFRE -->
+<div class="box" id="chest" style="display:none;">
+<p>🎁 Le coffre s’ouvre...</p>
+
+<p>Fragments trouvés :</p>
+<ul>
+<li>4</li>
+<li>Playlist</li>
+<li>Valeriya</li>
+</ul>
+
+<p>Un fragment manque...</p>
+
+<button onclick="send()">Terminer</button>
 </div>
 
 <script>
 
-let prenomUser = "";
+let data = {};
 
-// STEP 1
-function verifierPrenom() {
-  const prenom = document.getElementById("prenom").value.trim();
+// prénom
+function checkName() {
+  let p = document.getElementById("prenom").value.trim();
 
-  if (prenom.charAt(0).toLowerCase() === "v") {
-    prenomUser = prenom;
-
-    document.getElementById("step1").style.display = "none";
-    document.getElementById("step2").style.display = "block";
+  if (p.toLowerCase().startsWith("v")) {
+    data.prenom = p;
+    go(2);
   } else {
-    document.getElementById("erreur").style.display = "block";
+    document.getElementById("error").style.display = "block";
   }
 }
 
-// STEP 3
-function nextStep3() {
-  document.getElementById("step2").style.display = "none";
-  document.getElementById("step3").style.display = "block";
+// navigation simple
+function go(n) {
+  document.querySelectorAll(".box").forEach(b => b.style.display = "none");
+  document.getElementById("step"+n).style.display = "block";
+
+  // save data
+  if(n===4) data.pays = document.getElementById("pays").value;
+  if(n===5) data.guitare = document.getElementById("guitare").value;
+  if(n===6) data.ua = document.getElementById("ua").value;
+  if(n===7) data.juron = document.getElementById("juron").value;
 }
 
-// STEP 4
-function nextStep4() {
-  document.getElementById("step3").style.display = "none";
-  document.getElementById("step4").style.display = "block";
+// portes
+function door(type){
+  data.porte = type;
+  document.querySelectorAll(".box").forEach(b => b.style.display = "none");
+  document.getElementById(type).style.display = "block";
 }
 
-// STEP 5
-function nextStep5() {
-  document.getElementById("step4").style.display = "none";
-  document.getElementById("step5").style.display = "block";
+// coffre
+function goChest(){
+  document.querySelectorAll(".box").forEach(b => b.style.display = "none");
+  document.getElementById("chest").style.display = "block";
 }
 
-// STEP 6
-function fin() {
-  document.getElementById("step5").style.display = "none";
-  document.getElementById("step6").style.display = "block";
-}
-
-// ENVOI FORM
-function envoyer() {
-
-  const pays = document.getElementById("pays").value;
-  const guitare = document.getElementById("guitare").value;
-  const ukrainien = document.getElementById("ukrainien").value;
-
+// envoi
+function send(){
   fetch("https://formspree.io/f/xrejbypg", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      prenom: prenomUser,
-      pays: pays,
-      guitare: guitare,
-      ukrainien: ukrainien
-    })
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(data)
   })
-  .then(() => {
-    document.body.innerHTML = "<h2>🎁 Cadeau débloqué</h2><p>Réponses envoyées 💌</p>";
+  .then(()=>{
+    document.body.innerHTML = "<h2>💌 Réponses envoyées</h2><p>Merci d’avoir joué.</p>";
   })
-  .catch(() => {
-    alert("Erreur d'envoi 😢");
+  .catch(()=>{
+    alert("Erreur 😢");
   });
 }
 
