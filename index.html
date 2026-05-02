@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jeu secret 👀</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f5f5f5;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+    .box {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Bienvenue 😏</h1>
+
+<div class="box" id="step1">
+  <p>Choisis une porte :</p>
+  <button onclick="nextStep('A')">Porte A</button>
+  <button onclick="nextStep('B')">Porte B</button>
+</div>
+
+<div class="box" id="step2" style="display:none;">
+  <p>Écris un souvenir avec moi :</p>
+  <textarea id="souvenir"></textarea>
+  <button onclick="showFinal()">Continuer</button>
+</div>
+
+<div class="box" id="final" style="display:none;">
+  <p>Dernière question 👀</p>
+  <input type="text" id="message" placeholder="Message secret">
+  <button onclick="sendResult()">Envoyer</button>
+</div>
+
+<script>
+let choix = "";
+
+function nextStep(c) {
+  choix = c;
+  document.getElementById("step1").style.display = "none";
+  document.getElementById("step2").style.display = "block";
+}
+
+function showFinal() {
+  document.getElementById("step2").style.display = "none";
+  document.getElementById("final").style.display = "block";
+}
+
+function sendResult() {
+  const souvenir = document.getElementById("souvenir").value;
+  const message = document.getElementById("message").value;
+
+  const data = {
+    choix: choix,
+    souvenir: souvenir,
+    message: message
+  };
+
+  fetch("https://formspree.io/f/TON_ID_ICI", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+  document.body.innerHTML = "<h2>Réponses envoyées 💌</h2>";
+}
+</script>
+
+</body>
+</html>
