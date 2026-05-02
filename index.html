@@ -2,46 +2,82 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Atlas de Valeriya 👀</title>
+
+<title>Atlas de Valeriya</title>
+
+<!-- POLICES -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 body {
-  font-family: Arial;
-  background: linear-gradient(135deg, #1e1e2f, #3a3a6a);
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #141e30, #243b55);
   color: white;
   max-width: 600px;
   margin: auto;
   padding: 20px;
 }
 
+/* Carte */
 .box {
-  background: rgba(255,255,255,0.1);
-  padding: 20px;
-  border-radius: 15px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  padding: 25px;
+  border-radius: 20px;
   margin-top: 20px;
+  animation: fade 0.5s ease;
 }
 
+/* Boutons */
 button {
-  padding: 10px 15px;
+  padding: 12px 18px;
+  border-radius: 10px;
   border: none;
-  border-radius: 8px;
-  background: #ff4d6d;
+  background: linear-gradient(45deg, #ff4d6d, #ff758c);
   color: white;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 15px;
+  font-weight: 500;
 }
 
-input, select, textarea {
+/* Inputs */
+input, textarea {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: none;
 }
 
-#error {
-  color: #ff4d6d;
-  display: none;
+/* QCM stylé */
+.choice {
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.choice:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.selected {
+  background: #ff4d6d;
+}
+
+/* animation */
+@keyframes fade {
+  from {opacity:0; transform:translateY(10px);}
+  to {opacity:1;}
+}
+
+/* image header */
+.header {
+  width:100%;
+  border-radius:15px;
+  margin-bottom:15px;
 }
 </style>
 </head>
@@ -50,93 +86,92 @@ input, select, textarea {
 
 <h1>🌌 Atlas de Valeriya</h1>
 
+<img class="header" src="https://picsum.photos/600/200">
+
 <!-- STEP 1 -->
 <div class="box" id="step1">
 <p>Entre ton prénom :</p>
 <input id="prenom">
 <button onclick="checkName()">Entrer</button>
-<p id="error">Le prénom doit commencer par V</p>
+<p id="error" style="color:#ff4d6d;display:none;">Doit commencer par V</p>
 </div>
 
 <!-- STEP 2 -->
 <div class="box" id="step2" style="display:none;">
-<p>Bienvenue Valeriya. Cet endroit est pour toi.</p>
+<p>Bienvenue Valeriya 💫</p>
 <button onclick="go(3)">Continuer</button>
 </div>
 
-<!-- STEP 3 -->
+<!-- STEP 3 QCM -->
 <div class="box" id="step3" style="display:none;">
 <p>Tu préfères :</p>
-<select id="pays">
-<option>Canada</option>
-<option>Australie</option>
-</select>
+
+<div class="choice" onclick="select('pays','Canada',this)">🇨🇦 Canada</div>
+<div class="choice" onclick="select('pays','Australie',this)">🇦🇺 Australie</div>
+
 <button onclick="go(4)">Continuer</button>
 </div>
 
-<!-- STEP 4 -->
+<!-- STEP 4 QCM -->
 <div class="box" id="step4" style="display:none;">
 <p>Guitare :</p>
-<select id="guitare">
-<option>Électrique</option>
-<option>Acoustique</option>
-</select>
+
+<div class="choice" onclick="select('guitare','Électrique',this)">🎸 Électrique</div>
+<div class="choice" onclick="select('guitare','Acoustique',this)">🎻 Acoustique</div>
+
 <button onclick="go(5)">Continuer</button>
 </div>
 
 <!-- STEP 5 -->
 <div class="box" id="step5" style="display:none;">
-<p>Écris quelque chose en Ukrainien 🇺🇦 :</p>
+<p>Écris en Ukrainien 🇺🇦 :</p>
 <textarea id="ua"></textarea>
 <button onclick="go(6)">Continuer</button>
 </div>
 
 <!-- STEP 6 -->
 <div class="box" id="step6" style="display:none;">
-<p>Ton juron préféré en Ukrainien 😏 :</p>
+<p>Ton juron préféré 😏 :</p>
 <input id="juron">
 <button onclick="go(7)">Continuer</button>
 </div>
 
-<!-- STEP 7 PORTES -->
+<!-- PORTES -->
 <div class="box" id="step7" style="display:none;">
-<p>Tu vois trois portes :</p>
+<p>Choisis une porte :</p>
 
 <button onclick="door('souvenir')">🚪 Souvenirs</button>
-<button onclick="door('musique')">🚪 Musique</button>
-<button onclick="door('mystere')">🚪 Mystère</button>
+<button onclick="door('musique')">🎧 Musique</button>
+<button onclick="door('mystere')">🌌 Mystère</button>
 </div>
 
-<!-- CHEMIN SOUVENIR -->
+<!-- CHEMINS -->
 <div class="box" id="souvenir" style="display:none;">
-<p>Kyiv → Paris… un moment suspendu.</p>
+<p>Un souvenir entre Kyiv et Paris…</p>
 <button onclick="goChest()">Continuer</button>
 </div>
 
-<!-- CHEMIN MUSIQUE -->
 <div class="box" id="musique" style="display:none;">
 <p>Une playlist apparaît 🎧</p>
 <button onclick="goChest()">Continuer</button>
 </div>
 
-<!-- CHEMIN MYSTERE -->
 <div class="box" id="mystere" style="display:none;">
-<p>Quelque chose reste inexpliqué…</p>
+<p>Quelque chose d'inconnu…</p>
 <button onclick="goChest()">Continuer</button>
 </div>
 
 <!-- COFFRE -->
 <div class="box" id="chest" style="display:none;">
-<p>🎁 Le coffre s’ouvre...</p>
+<p>🎁 Coffre :</p>
 
-<p>Fragments trouvés :</p>
 <ul>
 <li>4</li>
 <li>Playlist</li>
 <li>Valeriya</li>
 </ul>
 
-<p>Un fragment manque...</p>
+<p>Fragment manquant...</p>
 
 <button onclick="send()">Terminer</button>
 </div>
@@ -145,11 +180,9 @@ input, select, textarea {
 
 let data = {};
 
-// prénom
-function checkName() {
+function checkName(){
   let p = document.getElementById("prenom").value.trim();
-
-  if (p.toLowerCase().startsWith("v")) {
+  if(p.toLowerCase().startsWith("v")){
     data.prenom = p;
     go(2);
   } else {
@@ -157,47 +190,50 @@ function checkName() {
   }
 }
 
-// navigation simple
-function go(n) {
-  document.querySelectorAll(".box").forEach(b => b.style.display = "none");
-  document.getElementById("step"+n).style.display = "block";
+function go(n){
+  document.querySelectorAll(".box").forEach(b=>b.style.display="none");
+  document.getElementById("step"+n).style.display="block";
 
-  // save data
-  if(n===4) data.pays = document.getElementById("pays").value;
-  if(n===5) data.guitare = document.getElementById("guitare").value;
-  if(n===6) data.ua = document.getElementById("ua").value;
-  if(n===7) data.juron = document.getElementById("juron").value;
+  if(n===5) data.pays = data.pays;
+  if(n===6) data.guitare = data.guitare;
+  if(n===7){
+    data.ua = document.getElementById("ua").value;
+    data.juron = document.getElementById("juron").value;
+  }
 }
 
-// portes
+function select(type,value,el){
+  data[type]=value;
+
+  document.querySelectorAll(".choice").forEach(c=>c.classList.remove("selected"));
+  el.classList.add("selected");
+}
+
 function door(type){
-  data.porte = type;
-  document.querySelectorAll(".box").forEach(b => b.style.display = "none");
-  document.getElementById(type).style.display = "block";
+  data.porte=type;
+  document.querySelectorAll(".box").forEach(b=>b.style.display="none");
+  document.getElementById(type).style.display="block";
 }
 
-// coffre
 function goChest(){
-  document.querySelectorAll(".box").forEach(b => b.style.display = "none");
-  document.getElementById("chest").style.display = "block";
+  document.querySelectorAll(".box").forEach(b=>b.style.display="none");
+  document.getElementById("chest").style.display="block";
 }
 
-// envoi
 function send(){
-  fetch("https://formspree.io/f/xrejbypg", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify(data)
-  })
-  .then(()=>{
-    document.body.innerHTML = "<h2>💌 Réponses envoyées</h2><p>Merci d’avoir joué.</p>";
-  })
-  .catch(()=>{
-    alert("Erreur 😢");
+  fetch("https://formspree.io/f/xrejbypg",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify(data)
+  }).then(()=>{
+    document.body.innerHTML="<h2>💌 Réponses envoyées</h2>";
   });
 }
 
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
