@@ -3,77 +3,160 @@
 <head>
   <meta charset="UTF-8">
   <title>Jeu secret 👀</title>
+
   <style>
     body {
       font-family: Arial;
-      background: #f5f5f5;
+      background: linear-gradient(135deg, #1e1e2f, #3a3a6a);
+      color: white;
       max-width: 600px;
       margin: auto;
       padding: 20px;
     }
+
     .box {
-      background: white;
+      background: rgba(255,255,255,0.1);
       padding: 20px;
-      border-radius: 10px;
+      border-radius: 15px;
       margin-top: 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      backdrop-filter: blur(8px);
     }
+
     button {
       padding: 10px 15px;
-      margin-top: 10px;
-      cursor: pointer;
       border: none;
-      border-radius: 5px;
-      background: black;
+      border-radius: 8px;
+      background: #ff4d6d;
       color: white;
-    }
-    textarea, input {
-      width: 100%;
+      cursor: pointer;
       margin-top: 10px;
-      padding: 8px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+    }
+
+    #erreur {
+      color: #ff4d6d;
+      display: none;
+      margin-top: 10px;
     }
   </style>
 </head>
 
 <body>
 
-<h1>Bienvenue 😏</h1>
+<h1>🎮 Jeu secret</h1>
 
+<!-- STEP 1 -->
 <div class="box" id="step1">
-  <p>Choisis une porte :</p>
-  <button onclick="nextStep('A')">Porte A</button>
-  <button onclick="nextStep('B')">Porte B</button>
+  <p>1) Entre ton prénom :</p>
+  <input type="text" id="prenom" placeholder="Ton prénom">
+  <button onclick="verifierPrenom()">Valider</button>
+  <p id="erreur">❌ Le prénom doit commencer par V</p>
 </div>
 
+<!-- STEP 2 -->
 <div class="box" id="step2" style="display:none;">
-  <p>Écris un souvenir avec moi :</p>
-  <textarea id="souvenir" placeholder="Ton souvenir..."></textarea>
-  <button onclick="showFinal()">Continuer</button>
+  <p>2) Bienvenue Valeriya 👀<br>
+  J'ai créé ce petit jeu pour te distraire.</p>
+
+  <button onclick="nextStep3()">Continuer</button>
 </div>
 
-<div class="box" id="final" style="display:none;">
-  <p>Dernière question 👀</p>
-  <input type="text" id="message" placeholder="Message secret">
-  <button onclick="sendResult()">Envoyer</button>
+<!-- STEP 3 -->
+<div class="box" id="step3" style="display:none;">
+  <p>3) Tu préfères :</p>
+
+  <select id="pays">
+    <option>Canada</option>
+    <option>Australie</option>
+  </select>
+
+  <button onclick="nextStep4()">Continuer</button>
+</div>
+
+<!-- STEP 4 -->
+<div class="box" id="step4" style="display:none;">
+  <p>4) Tu préfères :</p>
+
+  <select id="guitare">
+    <option>Guitare électrique</option>
+    <option>Guitare acoustique</option>
+  </select>
+
+  <button onclick="nextStep5()">Continuer</button>
+</div>
+
+<!-- STEP 5 -->
+<div class="box" id="step5" style="display:none;">
+  <p>5) Écris quelque chose en Ukrainien 🇺🇦 :</p>
+  <textarea id="ukrainien" placeholder="Écris ici..."></textarea>
+
+  <button onclick="fin()">Continuer</button>
+</div>
+
+<!-- STEP 6 -->
+<div class="box" id="step6" style="display:none;">
+  <p>6) Merci.<br>
+  Tu viens de débloquer un cadeau 🎁<br>
+  Jeu terminé !</p>
+
+  <button onclick="envoyer()">Envoyer les réponses</button>
 </div>
 
 <script>
-let choix = "";
 
-function nextStep(c) {
-  choix = c;
-  document.getElementById("step1").style.display = "none";
-  document.getElementById("step2").style.display = "block";
+let prenomUser = "";
+
+// STEP 1
+function verifierPrenom() {
+  const prenom = document.getElementById("prenom").value.trim();
+
+  if (prenom.charAt(0).toLowerCase() === "v") {
+    prenomUser = prenom;
+
+    document.getElementById("step1").style.display = "none";
+    document.getElementById("step2").style.display = "block";
+  } else {
+    document.getElementById("erreur").style.display = "block";
+  }
 }
 
-function showFinal() {
+// STEP 3
+function nextStep3() {
   document.getElementById("step2").style.display = "none";
-  document.getElementById("final").style.display = "block";
+  document.getElementById("step3").style.display = "block";
 }
 
-function sendResult() {
-  const souvenir = document.getElementById("souvenir").value;
-  const message = document.getElementById("message").value;
+// STEP 4
+function nextStep4() {
+  document.getElementById("step3").style.display = "none";
+  document.getElementById("step4").style.display = "block";
+}
+
+// STEP 5
+function nextStep5() {
+  document.getElementById("step4").style.display = "none";
+  document.getElementById("step5").style.display = "block";
+}
+
+// STEP 6
+function fin() {
+  document.getElementById("step5").style.display = "none";
+  document.getElementById("step6").style.display = "block";
+}
+
+// ENVOI FORM
+function envoyer() {
+
+  const pays = document.getElementById("pays").value;
+  const guitare = document.getElementById("guitare").value;
+  const ukrainien = document.getElementById("ukrainien").value;
 
   fetch("https://formspree.io/f/xrejbypg", {
     method: "POST",
@@ -81,18 +164,20 @@ function sendResult() {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      choix: choix,
-      souvenir: souvenir,
-      message: message
+      prenom: prenomUser,
+      pays: pays,
+      guitare: guitare,
+      ukrainien: ukrainien
     })
   })
   .then(() => {
-    document.body.innerHTML = "<h2>Réponses envoyées 💌</h2><p>Merci 😄</p>";
+    document.body.innerHTML = "<h2>🎁 Cadeau débloqué</h2><p>Réponses envoyées 💌</p>";
   })
   .catch(() => {
     alert("Erreur d'envoi 😢");
   });
 }
+
 </script>
 
 </body>
