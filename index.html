@@ -64,16 +64,23 @@ function sendResult() {
   const souvenir = document.getElementById("souvenir").value;
   const message = document.getElementById("message").value;
 
-  const sujet = encodeURIComponent("Réponses du jeu 👀");
-  const corps = encodeURIComponent(
-    "Choix: " + choix + "\n\n" +
-    "Souvenir: " + souvenir + "\n\n" +
-    "Message: " + message
-  );
-
-  window.location.href = `mailto:jimiouriachi@gmail.com?subject=${sujet}&body=${corps}`;
-}
-  document.body.innerHTML = "<h2>Réponses envoyées 💌</h2>";
+  fetch("https://formspree.io/f/xrejbypg", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      choix: choix,
+      souvenir: souvenir,
+      message: message
+    })
+  })
+  .then(() => {
+    document.body.innerHTML = "<h2>Réponses envoyées 💌</h2>";
+  })
+  .catch(() => {
+    alert("Erreur d'envoi 😢");
+  });
 }
 </script>
 
