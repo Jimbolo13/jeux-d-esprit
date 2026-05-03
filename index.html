@@ -2,238 +2,251 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Jours étranges</title>
 
-<title>Atlas de Valeriya</title>
-
-<!-- POLICES -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #141e30, #243b55);
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
   color: white;
-  max-width: 600px;
+  max-width: 700px;
   margin: auto;
   padding: 20px;
 }
 
-/* Carte */
 .box {
   background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
   padding: 25px;
   border-radius: 20px;
   margin-top: 20px;
-  animation: fade 0.5s ease;
+  backdrop-filter: blur(10px);
+  animation: fade 0.6s ease;
 }
 
-/* Boutons */
 button {
-  padding: 12px 18px;
-  border-radius: 10px;
-  border: none;
-  background: linear-gradient(45deg, #ff4d6d, #ff758c);
-  color: white;
-  cursor: pointer;
-  margin-top: 15px;
-  font-weight: 500;
-}
-
-/* Inputs */
-input, textarea {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: none;
-}
-
-/* QCM stylé */
-.choice {
   padding: 12px;
-  margin-top: 10px;
+  margin: 10px 5px;
+  border: none;
   border-radius: 10px;
-  background: rgba(255,255,255,0.1);
   cursor: pointer;
+  background: #ff4d6d;
+  color: white;
   transition: 0.2s;
 }
 
+button:hover {
+  transform: scale(1.05);
+}
+
+.choice {
+  display:block;
+  padding:10px;
+  margin:8px 0;
+  background: rgba(255,255,255,0.1);
+  border-radius:10px;
+  cursor:pointer;
+}
+
 .choice:hover {
-  background: rgba(255,255,255,0.2);
+  background:#ff4d6d;
 }
 
-.selected {
-  background: #ff4d6d;
+img {
+  width:100%;
+  border-radius:15px;
+  margin-top:10px;
 }
 
-/* animation */
 @keyframes fade {
   from {opacity:0; transform:translateY(10px);}
   to {opacity:1;}
-}
-
-/* image header */
-.header {
-  width:100%;
-  border-radius:15px;
-  margin-bottom:15px;
 }
 </style>
 </head>
 
 <body>
 
-<h1>🌌 Atlas de Valeriya</h1>
+<h1>✨ Jours étranges ✨</h1>
 
-<img class="header" src="https://picsum.photos/600/200">
+<!-- MUSIC -->
+<audio id="bgm" loop>
+  <source src="testsonore.mp3">
+</audio>
 
-<!-- STEP 1 -->
 <div class="box" id="step1">
-<p>Entre ton prénom :</p>
-<input id="prenom">
-<button onclick="checkName()">Entrer</button>
-<p id="error" style="color:#ff4d6d;display:none;">Doit commencer par V</p>
+<p><b>Welcome, Valeriya.</b></p>
+
+<p>I’ve been learning to code for my degree, so I’ve started building small projects like this one.</p>
+
+<p>This little experience is for you — just something simple, maybe a bit silly, but hopefully enough to bring you a bit of lightness, a bit of positivity… maybe even a small dopamine boost.</p>
+
+<p>You’re about to make choices that will shape something unique.</p>
+
+<button onclick="start()">Begin</button>
 </div>
 
 <!-- STEP 2 -->
 <div class="box" id="step2" style="display:none;">
-<p>Bienvenue Valeriya 💫</p>
-<button onclick="go(3)">Continuer</button>
+<p><b>1) Choose a place to spend a sleepless night on your own.</b></p>
+
+<div class="choice" onclick="next(3)">Old, worn-out but strangely cozy indie movie theater</div>
+<img src="https://picsum.photos/600/300?random=1">
+
+<div class="choice" onclick="next(3)">A massive, endless library</div>
+<img src="https://picsum.photos/600/300?random=2">
 </div>
 
-<!-- STEP 3 QCM -->
+<!-- STEP 3 -->
 <div class="box" id="step3" style="display:none;">
-<p>Tu préfères :</p>
+<p><b>2) The sun rises. You feel like sleeping in your car. Choose it.</b></p>
 
-<div class="choice" onclick="select('pays','Canada',this)">🇨🇦 Canada</div>
-<div class="choice" onclick="select('pays','Australie',this)">🇦🇺 Australie</div>
+<div class="choice" onclick="next(4)">Volkswagen Beetle 1968</div>
+<div class="choice" onclick="next(4)">Citroën C15</div>
+<div class="choice" onclick="next(4)">Peugeot 204</div>
+<div class="choice" onclick="next(4)">Fiat Topolino</div>
 
-<button onclick="go(4)">Continuer</button>
+<img src="https://picsum.photos/600/300?random=3">
 </div>
 
-<!-- STEP 4 QCM -->
+<!-- STEP 4 -->
 <div class="box" id="step4" style="display:none;">
-<p>Guitare :</p>
+<p><b>3) You wake up starving. Where do you go?</b></p>
 
-<div class="choice" onclick="select('guitare','Électrique',this)">🎸 Électrique</div>
-<div class="choice" onclick="select('guitare','Acoustique',this)">🎻 Acoustique</div>
+<div class="choice" onclick="next(5)">Italian restaurant 🍝</div>
+<div class="choice" onclick="next(5)">Chinese restaurant 🥢</div>
 
-<button onclick="go(5)">Continuer</button>
+<img src="https://picsum.photos/600/300?random=4">
 </div>
 
 <!-- STEP 5 -->
 <div class="box" id="step5" style="display:none;">
-<p>Écris en Ukrainien 🇺🇦 :</p>
-<textarea id="ua"></textarea>
-<button onclick="go(6)">Continuer</button>
+<p><b>4) Your friend calls — you're late for band practice.</b></p>
+
+<p>You shout your favorite Ukrainian swear word:</p>
+
+<input id="swear">
+
+<button onclick="next(6)">Continue</button>
 </div>
 
 <!-- STEP 6 -->
 <div class="box" id="step6" style="display:none;">
-<p>Ton juron préféré 😏 :</p>
-<input id="juron">
-<button onclick="go(7)">Continuer</button>
+<p><b>5) What's your band's name?</b></p>
+
+<input id="band">
+
+<button onclick="next(7)">Continue</button>
 </div>
 
-<!-- PORTES -->
+<!-- STEP 7 -->
 <div class="box" id="step7" style="display:none;">
-<p>Choisis une porte :</p>
+<p><b>6) Your role?</b></p>
 
-<button onclick="door('souvenir')">🚪 Souvenirs</button>
-<button onclick="door('musique')">🎧 Musique</button>
-<button onclick="door('mystere')">🌌 Mystère</button>
+<div class="choice" onclick="role('guitar')">Guitarist</div>
+<div class="choice" onclick="role('singer')">Singer</div>
+<div class="choice" onclick="role('drummer')">Drummer</div>
+<div class="choice" onclick="role('synth')">Synth</div>
 </div>
 
-<!-- CHEMINS -->
-<div class="box" id="souvenir" style="display:none;">
-<p>Un souvenir entre Kyiv et Paris…</p>
-<button onclick="goChest()">Continuer</button>
+<!-- ROLE BRANCH -->
+<div class="box" id="roleBox" style="display:none;"></div>
+
+<!-- ENERGY -->
+<div class="box" id="energy" style="display:none;">
+<p><b>After a long session, you grab a drink.</b></p>
+
+<div class="choice" onclick="next(9)">RedBull</div>
+<div class="choice" onclick="next(9)">Monster</div>
+<div class="choice" onclick="next(9)">I'd rather drink my sweat</div>
 </div>
 
-<div class="box" id="musique" style="display:none;">
-<p>Une playlist apparaît 🎧</p>
-<button onclick="goChest()">Continuer</button>
+<!-- PRODUCER -->
+<div class="box" id="producer" style="display:none;">
+<p><b>A music producer knocks.</b></p>
+
+<p>He wants to sign YOU. Do you accept?</p>
+
+<button id="yes" onclick="next(11)">YES</button>
+<button id="no" onclick="refuse()">NO</button>
 </div>
 
-<div class="box" id="mystere" style="display:none;">
-<p>Quelque chose d'inconnu…</p>
-<button onclick="goChest()">Continuer</button>
-</div>
+<!-- FINAL -->
+<div class="box" id="final" style="display:none;">
+<p><b>Choose your new life:</b></p>
 
-<!-- COFFRE -->
-<div class="box" id="chest" style="display:none;">
-<p>🎁 Coffre :</p>
-
-<ul>
-<li>4</li>
-<li>Playlist</li>
-<li>Valeriya</li>
-</ul>
-
-<p>Fragment manquant...</p>
-
-<button onclick="send()">Terminer</button>
+<div class="choice" onclick="end()">Canada 🇨🇦</div>
+<div class="choice" onclick="end()">Australia 🇦🇺</div>
 </div>
 
 <script>
 
-let data = {};
+let noCount = 0;
 
-function checkName(){
-  let p = document.getElementById("prenom").value.trim();
-  if(p.toLowerCase().startsWith("v")){
-    data.prenom = p;
-    go(2);
-  } else {
-    document.getElementById("error").style.display = "block";
+function start(){
+  document.getElementById("bgm").play();
+  next(2);
+}
+
+function next(n){
+  document.querySelectorAll(".box").forEach(b=>b.style.display="none");
+  document.getElementById("step"+n)?.style.display="block";
+
+  if(n===9) document.getElementById("energy").style.display="block";
+  if(n===11) document.getElementById("final").style.display="block";
+}
+
+function role(r){
+  let box = document.getElementById("roleBox");
+  box.style.display="block";
+
+  if(r==="guitar"){
+    box.innerHTML = `
+    <p>Electric or Acoustic?</p>
+    <div class="choice" onclick="next(9)">Electric</div>
+    <div class="choice" onclick="next(9)">Acoustic</div>`;
+  }
+
+  if(r==="singer"){
+    box.innerHTML = `
+    <p>Your voice:</p>
+    <div class="choice" onclick="next(9)">Britney Spears</div>
+    <div class="choice" onclick="next(9)">Billie Eilish</div>
+    <div class="choice" onclick="next(9)">Lorde</div>
+    <div class="choice" onclick="next(9)">Taylor Swift</div>`;
+  }
+
+  if(r==="drummer"){
+    box.innerHTML = `<p>You hit hard. No further questions.</p><button onclick="next(9)">Continue</button>`;
+  }
+
+  if(r==="synth"){
+    box.innerHTML = `<p>You control the atmosphere.</p><button onclick="next(9)">Continue</button>`;
+  }
+
+  document.getElementById("step7").style.display="none";
+}
+
+function refuse(){
+  noCount++;
+
+  let yesBtn = document.getElementById("yes");
+  let noBtn = document.getElementById("no");
+
+  yesBtn.style.fontSize = (16 + noCount*2) + "px";
+  noBtn.style.fontSize = (16 - noCount) + "px";
+
+  if(noCount > 30){
+    document.body.innerHTML = "<h1>GAME OVER</h1>";
   }
 }
 
-function go(n){
-  document.querySelectorAll(".box").forEach(b=>b.style.display="none");
-  document.getElementById("step"+n).style.display="block";
-
-  if(n===5) data.pays = data.pays;
-  if(n===6) data.guitare = data.guitare;
-  if(n===7){
-    data.ua = document.getElementById("ua").value;
-    data.juron = document.getElementById("juron").value;
-  }
-}
-
-function select(type,value,el){
-  data[type]=value;
-
-  document.querySelectorAll(".choice").forEach(c=>c.classList.remove("selected"));
-  el.classList.add("selected");
-}
-
-function door(type){
-  data.porte=type;
-  document.querySelectorAll(".box").forEach(b=>b.style.display="none");
-  document.getElementById(type).style.display="block";
-}
-
-function goChest(){
-  document.querySelectorAll(".box").forEach(b=>b.style.display="none");
-  document.getElementById("chest").style.display="block";
-}
-
-function send(){
-  fetch("https://formspree.io/f/xrejbypg",{
-    method:"POST",
-    headers:{"Content-Type":"application/json"},
-    body:JSON.stringify(data)
-  }).then(()=>{
-    document.body.innerHTML="<h2>💌 Réponses envoyées</h2>";
-  });
+function end(){
+  document.body.innerHTML = "<h2>🌌 The story continues...</h2>";
 }
 
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
