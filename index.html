@@ -33,11 +33,6 @@ button {
   cursor: pointer;
   background: #ff4d6d;
   color: white;
-  transition: 0.2s;
-}
-
-button:hover {
-  transform: scale(1.05);
 }
 
 .choice {
@@ -47,10 +42,6 @@ button:hover {
   background: rgba(255,255,255,0.1);
   border-radius:10px;
   cursor:pointer;
-}
-
-.choice:hover {
-  background:#ff4d6d;
 }
 
 img {
@@ -70,98 +61,79 @@ img {
 
 <h1>✨ Jours étranges ✨</h1>
 
+<!-- STEP 1 -->
 <div class="box" id="step1">
 <p><b>Welcome, Valeriya.</b></p>
-
-<p>I’ve been learning to code for my degree, so I’ve started building small projects like this one.</p>
-
-<p>This little experience is for you — just something simple, maybe a bit silly, but hopefully enough to bring you a bit of lightness, a bit of positivity… maybe even a small dopamine boost.</p>
-
-<p>You’re about to make choices that will shape something unique.</p>
-
+<p>This little experience is for you.</p>
 <button onclick="start()">Begin</button>
 </div>
 
 <!-- STEP 2 -->
 <div class="box" id="step2" style="display:none;">
-<p><b>1) Choose a place to spend a sleepless night on your own.</b></p>
+<p><b>Choose a place to spend the night.</b></p>
 
-<div class="choice" onclick="next(3)">Old, worn-out but strangely cozy indie movie theater</div>
-<img src="https://picsum.photos/600/300?random=1">
+<div class="choice" onclick="next(3)">Indie movie theater</div>
+<img src="https://picsum.photos/600/300?1">
 
-<div class="choice" onclick="next(3)">A massive, endless library</div>
-<img src="https://picsum.photos/600/300?random=2">
+<div class="choice" onclick="next(3)">Huge library</div>
+<img src="https://picsum.photos/600/300?2">
 </div>
 
 <!-- STEP 3 -->
 <div class="box" id="step3" style="display:none;">
-<p><b>2) The sun rises. You feel like sleeping in your car. Choose it.</b></p>
+<p><b>Choose your car.</b></p>
 
-<div class="choice" onclick="next(4)">Volkswagen Beetle 1968</div>
+<div class="choice" onclick="next(4)">Volkswagen Beetle</div>
 <div class="choice" onclick="next(4)">Citroën C15</div>
 <div class="choice" onclick="next(4)">Peugeot 204</div>
 <div class="choice" onclick="next(4)">Fiat Topolino</div>
-
-<img src="https://picsum.photos/600/300?random=3">
 </div>
 
 <!-- STEP 4 -->
 <div class="box" id="step4" style="display:none;">
-<p><b>3) You wake up starving. Where do you go?</b></p>
+<p><b>Where do you eat?</b></p>
 
-<div class="choice" onclick="next(5)">Italian restaurant 🍝</div>
-<div class="choice" onclick="next(5)">Chinese restaurant 🥢</div>
-
-<img src="https://picsum.photos/600/300?random=4">
+<div class="choice" onclick="next(5)">Italian</div>
+<div class="choice" onclick="next(5)">Chinese</div>
 </div>
 
 <!-- STEP 5 -->
 <div class="box" id="step5" style="display:none;">
-<p><b>4) Your friend calls — you're late for band practice.</b></p>
-
-<p>You shout your favorite Ukrainian swear word:</p>
-
+<p>Favorite Ukrainian swear word:</p>
 <input id="swear">
-
 <button onclick="next(6)">Continue</button>
 </div>
 
 <!-- STEP 6 -->
 <div class="box" id="step6" style="display:none;">
-<p><b>5) What's your band's name?</b></p>
-
+<p>Band name:</p>
 <input id="band">
-
 <button onclick="next(7)">Continue</button>
 </div>
 
 <!-- STEP 7 -->
 <div class="box" id="step7" style="display:none;">
-<p><b>6) Your role?</b></p>
+<p>Your role:</p>
 
-<div class="choice" onclick="role('guitar')">Guitarist</div>
+<div class="choice" onclick="role('guitar')">Guitar</div>
 <div class="choice" onclick="role('singer')">Singer</div>
-<div class="choice" onclick="role('drummer')">Drummer</div>
+<div class="choice" onclick="role('drummer')">Drums</div>
 <div class="choice" onclick="role('synth')">Synth</div>
 </div>
 
-<!-- ROLE BRANCH -->
 <div class="box" id="roleBox" style="display:none;"></div>
 
 <!-- ENERGY -->
 <div class="box" id="energy" style="display:none;">
-<p><b>After a long session, you grab a drink.</b></p>
-
-<div class="choice" onclick="next(9)">RedBull</div>
-<div class="choice" onclick="next(9)">Monster</div>
-<div class="choice" onclick="next(9)">I'd rather drink my sweat</div>
+<p>Energy drink?</p>
+<div class="choice" onclick="next(10)">RedBull</div>
+<div class="choice" onclick="next(10)">Monster</div>
+<div class="choice" onclick="next(10)">Sweat</div>
 </div>
 
 <!-- PRODUCER -->
 <div class="box" id="producer" style="display:none;">
-<p><b>A music producer knocks.</b></p>
-
-<p>He wants to sign YOU. Do you accept?</p>
+<p>Producer offers you a contract.</p>
 
 <button id="yes" onclick="next(11)">YES</button>
 <button id="no" onclick="refuse()">NO</button>
@@ -169,10 +141,10 @@ img {
 
 <!-- FINAL -->
 <div class="box" id="final" style="display:none;">
-<p><b>Choose your new life:</b></p>
+<p>Choose your country:</p>
 
-<div class="choice" onclick="end()">Canada 🇨🇦</div>
-<div class="choice" onclick="end()">Australia 🇦🇺</div>
+<div class="choice" onclick="end()">Canada</div>
+<div class="choice" onclick="end()">Australia</div>
 </div>
 
 <script>
@@ -180,14 +152,16 @@ img {
 let noCount = 0;
 
 function start(){
-  document.getElementById("bgm").play();
   next(2);
 }
 
 function next(n){
-  document.querySelectorAll(".box").forEach(b=>b.style.display="none");
-  document.getElementById("step"+n)?.style.display="block";
+  document.querySelectorAll(".box").forEach(b => b.style.display = "none");
 
+  let step = document.getElementById("step"+n);
+  if(step) step.style.display = "block";
+
+  if(n===10) document.getElementById("producer").style.display="block";
   if(n===9) document.getElementById("energy").style.display="block";
   if(n===11) document.getElementById("final").style.display="block";
 }
@@ -195,50 +169,44 @@ function next(n){
 function role(r){
   let box = document.getElementById("roleBox");
   box.style.display="block";
+  document.getElementById("step7").style.display="none";
 
   if(r==="guitar"){
-    box.innerHTML = `
-    <p>Electric or Acoustic?</p>
+    box.innerHTML = `<p>Electric or Acoustic?</p>
     <div class="choice" onclick="next(9)">Electric</div>
     <div class="choice" onclick="next(9)">Acoustic</div>`;
   }
 
   if(r==="singer"){
-    box.innerHTML = `
-    <p>Your voice:</p>
-    <div class="choice" onclick="next(9)">Britney Spears</div>
+    box.innerHTML = `<p>Your voice:</p>
     <div class="choice" onclick="next(9)">Billie Eilish</div>
-    <div class="choice" onclick="next(9)">Lorde</div>
-    <div class="choice" onclick="next(9)">Taylor Swift</div>`;
+    <div class="choice" onclick="next(9)">Lorde</div>`;
   }
 
   if(r==="drummer"){
-    box.innerHTML = `<p>You hit hard. No further questions.</p><button onclick="next(9)">Continue</button>`;
+    box.innerHTML = `<button onclick="next(9)">Continue</button>`;
   }
 
   if(r==="synth"){
-    box.innerHTML = `<p>You control the atmosphere.</p><button onclick="next(9)">Continue</button>`;
+    box.innerHTML = `<button onclick="next(9)">Continue</button>`;
   }
-
-  document.getElementById("step7").style.display="none";
 }
 
 function refuse(){
   noCount++;
+  let yes = document.getElementById("yes");
+  let no = document.getElementById("no");
 
-  let yesBtn = document.getElementById("yes");
-  let noBtn = document.getElementById("no");
+  yes.style.fontSize = (16 + noCount*2)+"px";
+  no.style.fontSize = (16 - noCount)+"px";
 
-  yesBtn.style.fontSize = (16 + noCount*2) + "px";
-  noBtn.style.fontSize = (16 - noCount) + "px";
-
-  if(noCount > 30){
-    document.body.innerHTML = "<h1>GAME OVER</h1>";
+  if(noCount>30){
+    document.body.innerHTML="<h1>GAME OVER</h1>";
   }
 }
 
 function end(){
-  document.body.innerHTML = "<h2>🌌 The story continues...</h2>";
+  document.body.innerHTML="<h2>🌌 The story continues...</h2>";
 }
 
 </script>
